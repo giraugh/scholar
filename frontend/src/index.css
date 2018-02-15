@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: content-box;
+  font-family: 'lato';
+}
+
+@media only screen and (max-width: 610px) {
+  .DisciplineList {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media only screen and (max-width: 514px) {
+  .DisciplineList {
+    grid-template-columns: 1fr !important;
+  }
+  .Discipline {
+    height: min-content !important;
+  }
+}

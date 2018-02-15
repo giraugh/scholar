@@ -1,0 +1,93 @@
+{
+    "disciplines": [
+      {
+        "name": "Humanities",
+        "image": "eye",
+        "subjects": [
+          "History",
+          "History Australian",
+          "History Revolutions",
+          "Indonesian Second Language",
+          "Italian Second Language"
+        ]
+      },
+      {
+        "name": "Languages and Literature",
+        "image": "books",
+        "subjects": [
+          "English",
+          "English as an Additional Language",
+          "English Language",
+          "English Literature"         
+        ]
+      },
+      {
+        "name": "Performing Arts",
+        "image": "guitar",
+        "subjects": [
+          "Media",
+          "Music Investigation",
+          "Music Performance",
+          "Theatre Studies"
+        ]
+      },
+      {
+        "name": "Visual Arts",
+        "image": "art",
+        "subjects": [
+          "Art",
+          "Product Design & Technology = Fibre",
+          "Product Design & Technology = Wood",
+          "Studio Art",
+          "Visual Communication Design"
+        ]
+      },
+      {
+        "name": "Natural Sciences",
+        "image": "nightsky",
+        "subjects": [
+          "Biology",
+          "Chemistry",
+          "Environmental Science",
+          "Physics"
+        ]
+      },
+      {
+        "name": "Social Sciences",
+        "image": "earth",
+        "subjects": [
+          "Accounting",
+          "Business Management",
+          "Geography",
+          "Health and Human Development",
+          "Legal Studies",
+          "Psychology"
+        ]
+      },
+      {
+        "name": "Mathematics and Information Technology",
+        "image": "maths",
+        "subjects": [
+          "Algorithmics",
+          "Computing",
+          "Computing = Informatics",
+          "Computing = Software Development",
+          "Foundation Mathematics",
+          "Further Mathematics",
+          "General Mathematics B",
+          "Mathematical Methods",
+          "Specialist Mathematics"
+        ]
+      },
+      {
+        "name": "Other",
+        "image": "chess",
+        "subjects": [
+          "Food Technology",
+          "Outdoor Education",
+          "Physical Education",
+          "Systems & Technology"
+        ]
+      }
+    ]
+}
