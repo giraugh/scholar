@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 const topBarStyle = {
   display: 'block',
@@ -24,7 +25,7 @@ export default class TopBar extends Component {
   render () {
     return (
       <div className='TopBar' style={topBarStyle}>
-        <a href='/' style={linkStyle} > Scholar </a>
+        <Link to='/' style={linkStyle} > Scholar </Link>
       </div>
     )
   }

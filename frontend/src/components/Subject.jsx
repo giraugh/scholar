@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 const subjectNameToUrl = name =>
   name
@@ -16,7 +17,8 @@ const subjectStyle = {
   cursor: 'pointer',
 
   backgroundColor: '#f3f2f2',
-  boxShadow: '0px 0px 2px 0px #cacaca'
+  boxShadow: '0px 0px 2px 0px #cacaca',
+  textDecoration: 'none'
 }
 
 const subjectNameStyle = {
@@ -24,16 +26,16 @@ const subjectNameStyle = {
 }
 
 const subjectURL = (name) =>
-`/subject/${subjectNameToUrl(name)}`
+  `/subject/${subjectNameToUrl(name)}`
 
 export default class Subject extends Component {
   render () {
     return (
-      <div className='subject' style={subjectStyle} onClick={_ => { window.location = subjectURL(this.props.name) }}>
+      <Link className='Subject' style={subjectStyle} to={subjectURL(this.props.name)}>
         <span style={subjectNameStyle}>
           { this.props.name.replace(/=/g, '-') }
         </span>
-      </div>
+      </Link>
     )
   }
 }
