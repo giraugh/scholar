@@ -3,6 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import Jumbotron from '../components/Jumbotron'
 import {disciplines} from '../data/disciplines.json'
 import images from '../imgs/images'
+import Notes from '../components/Notes'
+import Links from '../components/Links'
 
 const disciplineOfSubject = code =>
   disciplines.find(discipline =>
@@ -51,12 +53,11 @@ export default class SubjectPage extends Component {
         <Route path='/subject/:code' render={(props) => {
           const discipline = disciplineOfSubject(props.match.params.code)
           const image = images[discipline.image]
-          console.log(discipline.image, images, image)
           return (
             <div className='SubjectPage'>
               <Jumbotron imageSource={image}>
                 <div style={gridStyle}>
-                  <span style={{...spanStyle, ...disciplineHeadingStyle}}>
+                  <span className='Sub' style={{...spanStyle, ...disciplineHeadingStyle}}>
                     { discipline.name }
                   </span>
                   <span style={spanStyle}>
@@ -64,6 +65,8 @@ export default class SubjectPage extends Component {
                   </span>
                 </div>
               </Jumbotron>
+              <Notes />
+              <Links />
             </div>
           )
         }} />
