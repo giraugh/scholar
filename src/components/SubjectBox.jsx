@@ -14,7 +14,8 @@ const containerStyle = {
   height: '300px',
   borderRadius: '3px',
   padding: '10px',
-  overflow: 'scroll'
+  overflow: 'scroll',
+  overflowY: 'hidden'
 }
 
 export default class SubjectBox extends Component {
