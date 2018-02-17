@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import Jumbotron from '../components/Jumbotron'
 import {disciplines} from '../data/disciplines.json'
 import images from '../imgs/images'
-import Notes from '../components/Notes'
+import Events from '../components/Events'
 import Links from '../components/Links'
 
 const disciplineOfSubject = code =>
@@ -65,7 +65,7 @@ export default class SubjectPage extends Component {
                   </span>
                 </div>
               </Jumbotron>
-              <Notes />
+              <Events />
               <Links />
             </div>
           )
