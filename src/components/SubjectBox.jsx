@@ -10,7 +10,7 @@ const outerStyle = {
 const containerStyle = {
   display: 'flex',
   flexDirection: 'row',
-  width: '100%',
+  width: 'calc(100% - 10px)',
   height: '150px',
   borderRadius: '3px',
   padding: '10px'
