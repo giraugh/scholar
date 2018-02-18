@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import SubjectBox from './SubjectBox'
 import Event from './Event'
+import chunk from 'lodash.chunk'
+
+// #TODO: Sort events by date
 
 const sampleEventData = {
   events: [
@@ -42,7 +45,8 @@ export default class Events extends Component {
     super()
     this.state = {
       events: sampleEventData.events,
-      width: window.innerWidth
+      width: window.innerWidth,
+      showAll: false
     }
   }
 
@@ -53,14 +57,33 @@ export default class Events extends Component {
     if (width < 800) { upcomingNumber = 3 }
     if (width < 600) { upcomingNumber = 2 }
     if (width < 420) { upcomingNumber = 1 }
+    const title = this.state.showAll
+      ? 'All Events'
+      : (
+        'Upcoming Event' +
+        (upcomingNumber > 1
+        ? 's' : '')
+      )
+
+    const events = this.state.events.map((event, i) =>
+      <Event {...event} key={event.name + i} />
+    )
+    let rows = this.state.showAll
+      ? chunk(events, upcomingNumber)
+      : [chunk(events, upcomingNumber)[0]]
     return (
-      <SubjectBox title='Events'>
-        {
-          this.state.events.slice(0, upcomingNumber).map((event, i) =>
-            <Event {...event} key={event.name + i} />
-          )
-        }
-      </SubjectBox>
+      <div>
+        <SubjectBox
+          title={title}
+          link={
+            this.state.showAll
+            ? 'Show less events...'
+            : 'See all events...'
+          }
+          onLink={() => this.setState({showAll: !this.state.showAll})}
+          rows={rows}
+        />
+      </div>
     )
   }
 

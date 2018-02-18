@@ -15,6 +15,22 @@
   background-color: #e4e4e4 !important;
 }
 
+.FadeInBox, .LinkBox {
+  transition: .3s;
+}
+
+.FadeInBox:hover {
+  background-color: rgb(234, 234, 234) !important;
+}
+
+.LinkBox:hover {
+  background-color: #f3f3f3 !important;
+}
+
+.FadeInBox:active, .LinkBox:active {
+  background-color: #d8d8d8 !important;
+}
+
 @media only screen and (max-width: 610px) {
   .DisciplineList {
     grid-template-columns: 1fr 1fr !important;
@@ -37,5 +53,17 @@
   }
   .Discipline {
     height: min-content !important;
+  }
+}
+
+@media only screen and (max-width: 562px) {
+  .SBHeader {
+    grid-template-columns: 1fr !important;
+  }
+
+  .SBHeader > .Linkify {
+    text-decoration: underline !important;
+    background-color: white !important;
+    justify-self: start !important;
   }
 }
