@@ -65,8 +65,8 @@ export default class SubjectPage extends Component {
                   </span>
                 </div>
               </Jumbotron>
-              <Events />
-              <Links />
+              <Events subject={props.match.params.code} />
+              <Links subject={props.match.params.code} />
             </div>
           )
         }} />

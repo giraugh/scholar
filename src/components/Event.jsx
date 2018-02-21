@@ -32,14 +32,14 @@ const dateStyle = {
 
 export default class Event extends Component {
   render () {
-    const date = new Date(this.props.date)
+    const date = new Date(+this.props.date)
     return (
       <div className='Event' style={eventStyle}>
         <div className='EventContent' style={contentStyle}>
           <h3> { this.props.name } </h3>
           <span> { this.props.description } </span>
         </div>
-        <span style={dateStyle}> { humanDate.prettyPrint(date) } </span>
+        <span style={{...dateStyle, ...{textDecoration: date < Date.now() ? 'line-through' : 'none'}}}> { humanDate.prettyPrint(date) } </span>
       </div>
     )
   }

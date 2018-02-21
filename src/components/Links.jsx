@@ -1,43 +1,16 @@
 import React, { Component } from 'react'
+import fetch from 'node-fetch'
 import SubjectBox from './SubjectBox'
 import chunk from 'lodash.chunk'
 import Link from './Link'
 
-const sampleLinksData = {
-  links: [
-    {
-      name: 'Test Link',
-      description: 'Should probably link to a test...',
-      link: 'http://google.com'
-    },
-    {
-      name: 'Test Link',
-      description: 'Should probably link to a test...',
-      link: '#'
-    },
-    {
-      name: 'Test Link',
-      description: 'Should probably link to a test...',
-      link: '#'
-    },
-    {
-      name: 'Test Link',
-      description: 'Should probably link to a test...',
-      link: '#'
-    },
-    {
-      name: 'Test Link',
-      description: 'Should probably link to a test...',
-      link: '#'
-    }
-  ]
-}
+const LINKS_URL = 'https://friendly-lamp.herokuapp.com/get-links'
 
 export default class Links extends Component {
   constructor () {
     super()
     this.state = {
-      links: sampleLinksData.links,
+      links: [],
       width: window.innerWidth,
       showAll: false
     }
@@ -69,9 +42,11 @@ export default class Links extends Component {
         <SubjectBox
           title={title}
           link={
-            this.state.showAll
-            ? 'Show less links...'
-            : 'See all links...'
+            links.length > upcomingNumber
+              ? this.state.showAll
+                ? 'Show less links...'
+                : 'See all links...'
+              : null
           }
           onLink={() => this.setState({showAll: !this.state.showAll})}
           rows={rows}
@@ -86,7 +61,13 @@ export default class Links extends Component {
   }
 
   componentDidMount () {
+    // Listen for resize
     window.addEventListener('resize', this.updateDimensions.bind(this))
+
+    // Get data
+    fetch(`${LINKS_URL}?subject=${this.props.subject}`)
+      .then(response => response.json())
+      .then(data => this.setState({links: data.links}))
   }
 
   componentWillUnmount () {

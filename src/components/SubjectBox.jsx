@@ -46,7 +46,7 @@ export default class SubjectBox extends Component {
             <h1> {this.props.title} </h1>
           }
           {
-            this.props.link &&
+            this.props.link && this.props.rows &&
             <span
               className='Linkify FadeInBox'
               style={linkStyle}
@@ -58,7 +58,7 @@ export default class SubjectBox extends Component {
         {
           (this.props.rows || [this.props.children]).map((row, i) =>
             <div style={containerStyle} key={i}>
-              { row }
+              { (row && row.length) ? row : 'There\'s nothing here...' }
             </div>
           )
         }

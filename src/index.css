@@ -15,8 +15,8 @@
   background-color: #e4e4e4 !important;
 }
 
-.FadeInBox, .LinkBox {
-  transition: .3s;
+.FadeInBox, .LinkBox, .LoginButton {
+  transition: .25s;
 }
 
 .FadeInBox:hover {
@@ -27,7 +27,11 @@
   background-color: #f3f3f3 !important;
 }
 
-.FadeInBox:active, .LinkBox:active {
+.LoginButton:hover {
+  background-color: #f9f5f5 !important;
+}
+
+.FadeInBox:active, .LinkBox:active, .LoginButton:active {
   background-color: #d8d8d8 !important;
 }
 
