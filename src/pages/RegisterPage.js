@@ -1,24 +1,26 @@
 import React, { Component } from 'react'
 import fetch from 'node-fetch'
 import cookies from 'cookies-js'
-import { Redirect } from 'react-router-dom'
 import { ScaleLoader as Loader } from 'react-spinners'
+import { Redirect } from 'react-router-dom'
+import { captchaKey } from '../data/config'
+import Recaptcha from 'react-recaptcha'
 
-const LOGIN_URL = 'http://friendly-lamp.herokuapp.com/auth/login'
+const REGISTER_URL = 'http://friendly-lamp.herokuapp.com/auth/register'
 
-const loginPageStyle = {
+const registerPageStyle = {
   marginTop: '50px'
 }
 
 const formStyle = {
   display: 'grid',
-  width: '50vw',
+  width: '70vw',
   margin: 'auto',
   backgroundColor: '#efefef',
-  height: '300px',
+  height: '600px',
   borderRadius: '3px',
   boxShadow: '#000000c7 0px 0px 8px 0px',
-  gridTemplateRows: '1fr 4fr',
+  gridTemplateRows: '1fr 8fr',
   marginTop: '100px',
   overflow: 'hidden'
 }
@@ -26,7 +28,7 @@ const formStyle = {
 const fieldsStyle = {
   display: 'grid',
   padding: '10px',
-  gridTemplateRows: '1fr 1fr 1fr',
+  gridTemplateRows: 'repeat(5, 1fr)',
   height: 'calc(100% - 40px)'
 }
 
@@ -76,12 +78,13 @@ const submitStyle = {
   outline: 'none'
 }
 
-export default class LoginPage extends Component {
+export default class RegisterPage extends Component {
   constructor () {
     super()
     this.state = {
       loading: false,
-      errorText: ''
+      errorText: '',
+      captchaVerified: false
     }
   }
 
@@ -94,15 +97,30 @@ export default class LoginPage extends Component {
     const data = {}
     formData.forEach((v, k) => { data[k] = v })
 
+    // Exclude captcha key
+    const requestData = {
+      name: data.name,
+      password: data.password,
+      email: data.email
+    }
+
+    // Get captcha response
+    const captchaResponse = data['g-recaptcha-response']
+    if (captchaResponse === '') {
+      this.setState({errorText: 'Please complete the ReCaptcha.'})
+      return
+    }
+
     // Start spinner
     this.setState({loading: true})
 
-    // Send form data to backend and accept token
-    fetch(LOGIN_URL, {
+    // Do the thing
+    fetch(REGISTER_URL, {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(requestData),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'g-recaptcha-response': captchaResponse
       }
     }).then((response) => {
       if (response.ok) {
@@ -120,12 +138,6 @@ export default class LoginPage extends Component {
     .catch(err => {
       let errorText = ''
       switch (err.message) {
-        case 'Not Found':
-          errorText = 'No user exists with given email.'
-          break
-        case 'Unauthorized':
-          errorText = 'Invalid password.'
-          break
         default:
           errorText = 'An error occured while logging in.'
           break
@@ -142,26 +154,40 @@ export default class LoginPage extends Component {
     this.forceUpdate()
   }
 
+  handleCaptchaVerified () {
+    console.log('Captcha Verified')
+    this.setState({captchaVerified: true})
+  }
+
+  handleCaptchaExpired () {
+    console.log('Captcha Expired')
+    this.setState({captchaVerified: false})
+  }
+
   isLoggedIn () {
     return cookies.get('user_token')
   }
 
   render () {
     return (
-      <div className='LoginPage' style={loginPageStyle}>
+      <div className='RegisterPage' style={registerPageStyle}>
         {
           // Redirect to route or show login form
           this.isLoggedIn()
             ? <Redirect to='/' />
             : (
               <form className='GrowPost' method='post' onSubmit={this.handleSubmit.bind(this)} style={formStyle}>
-                <h2 style={headerStyle}> Login </h2>
+                <h2 style={headerStyle}> Register </h2>
                 {
                   this.state.loading
                     ? <div style={{margin: 'auto'}}><Loader color={'#4c4c4c'} /></div>
                     : <div>
                       <span style={this.state.errorText !== '' ? errorStyle : {}}> { this.state.errorText } </span>
                       <div style={fieldsStyle}>
+                        <div style={fieldContStyle}>
+                          Name
+                          <input required type='text' name='name' placeholder='Angus' style={fieldStyle} />
+                        </div>
                         <div style={fieldContStyle}>
                           Email
                           <input required type='email' name='email' placeholder='gus@scholar.com' style={fieldStyle} />
@@ -170,7 +196,15 @@ export default class LoginPage extends Component {
                           Password
                           <input required type='password' name='password' placeholder='' style={fieldStyle} />
                         </div>
-                        <input type='submit' className='LoginButton' value='LOGIN' style={submitStyle} />
+                        <div style={fieldContStyle}>
+                          <Recaptcha
+                            sitekey={captchaKey} />
+                        </div>
+                        <input
+                          type='submit'
+                          className='LoginButton'
+                          value='REGISTER'
+                          style={submitStyle} />
                       </div>
                     </div>
                 }

@@ -25,15 +25,18 @@ const homeLinkStyle = {
   lineHeight: '40px'
 }
 
-const loginLinkStyle = {
+const formLinkStyle = {
   color: 'white',
   textDecoration: 'none',
   fontSize: '1em',
   marginRight: '15px',
   verticalAlign: 'middle',
   lineHeight: '40px',
-  float: 'right',
   cursor: 'pointer'
+}
+
+const formLinksStyle = {
+  float: 'right'
 }
 
 export default class TopBar extends Component {
@@ -87,8 +90,11 @@ export default class TopBar extends Component {
         <Link to='/' style={homeLinkStyle} > Scholar </Link>
         {
         this.isLoggedIn()
-          ? <a onClick={this.handleLogout} style={loginLinkStyle}> {namePrefix} Logout </a>
-          : <Link to='/login' style={loginLinkStyle}> Login </Link>
+          ? <div style={formLinksStyle}><a onClick={this.handleLogout} style={formLinkStyle}> {namePrefix} Logout </a></div>
+          : (<div style={formLinksStyle}>
+            <Link to='/register' style={formLinkStyle}> Register </Link>
+            <Link to='/login' style={formLinkStyle}> Login </Link>
+          </div>)
         }
       </div>
     )

@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import SubjectPage from './pages/SubjectPage'
 import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 import TopBar from './components/TopBar'
 
 export default class App extends Component {
@@ -13,6 +14,7 @@ export default class App extends Component {
         <Switch>
           <Route path='/subject' component={SubjectPage} />
           <Route path='/login' component={LoginPage} />
+          <Route path='/register' component={RegisterPage} />
           <Route path='/' component={HomePage} />
         </Switch>
       </div>
