@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import cookies from 'cookies-js'
-import fetch from 'node-fetch'
-
-const ME_URL = 'http://friendly-lamp.herokuapp.com/auth/me'
+import { IsLoggedIn, NotLoggedIn, MyUserName, LogoutLink } from './User'
 
 const topBarStyle = {
   display: 'block',
@@ -47,55 +44,21 @@ export default class TopBar extends Component {
     }
   }
 
-  isLoggedIn () {
-    return cookies.get('user_token')
-  }
-
-  handleLogout () {
-    cookies.set('user_token')
-    window.location.reload()
-  }
-
-  goAndGetName () {
-    const token = cookies.get('user_token')
-    fetch(ME_URL, {
-      method: 'GET',
-      headers: {
-        'x-access-token': token
-      }
-    }).then(response => response.json())
-    .then(data => {
-      if (data && data.name) {
-        this.setState({name: data.name})
-      }
-    })
-  }
-
-  componentDidMount () {
-    // Get user name
-    if (this.isLoggedIn()) {
-      this.goAndGetName()
-    }
-  }
-
   render () {
-    if (!this.state.name) {
-      if (this.isLoggedIn()) {
-        this.goAndGetName()
-      }
-    }
-    const namePrefix = this.state.name ? this.state.name + ' - ' : ''
     return (
       <div className='TopBar' style={topBarStyle}>
         <Link to='/' style={homeLinkStyle} > Scholar </Link>
-        {
-        this.isLoggedIn()
-          ? <div style={formLinksStyle}><a onClick={this.handleLogout} style={formLinkStyle}> {namePrefix} Logout </a></div>
-          : (<div style={formLinksStyle}>
+        <div style={formLinksStyle}>
+          <IsLoggedIn>
+            <LogoutLink style={formLinkStyle}>
+              <MyUserName suffix=' -' /> Logout
+            </LogoutLink>
+          </IsLoggedIn>
+          <NotLoggedIn>
             <Link to='/register' style={formLinkStyle}> Register </Link>
             <Link to='/login' style={formLinkStyle}> Login </Link>
-          </div>)
-        }
+          </NotLoggedIn>
+        </div>
       </div>
     )
   }

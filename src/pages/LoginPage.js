@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 import cookies from 'cookies-js'
 import { Redirect } from 'react-router-dom'
 import { ScaleLoader as Loader } from 'react-spinners'
+import 'formdata-polyfill'
 
 const LOGIN_URL = 'http://friendly-lamp.herokuapp.com/auth/login'
 
@@ -79,6 +80,7 @@ const submitStyle = {
 export default class LoginPage extends Component {
   constructor () {
     super()
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
       loading: false,
       errorText: ''
@@ -154,7 +156,7 @@ export default class LoginPage extends Component {
           this.isLoggedIn()
             ? <Redirect to='/' />
             : (
-              <form className='GrowPost' method='post' onSubmit={this.handleSubmit.bind(this)} style={formStyle}>
+              <form className='GrowPost' method='post' onSubmit={this.handleSubmit} style={formStyle}>
                 <h2 style={headerStyle}> Login </h2>
                 {
                   this.state.loading
