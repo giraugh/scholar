@@ -3,7 +3,6 @@ import fetch from 'node-fetch'
 import cookies from 'cookies-js'
 import { Redirect } from 'react-router-dom'
 import { ScaleLoader as Loader } from 'react-spinners'
-import 'formdata-polyfill'
 
 const LOGIN_URL = 'http://friendly-lamp.herokuapp.com/auth/login'
 
