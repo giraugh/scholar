@@ -75,7 +75,10 @@ const submitStyle = {
   boxShadow: '#000000c7 0px 0px 4px 0px',
   fontSize: '20px',
   cursor: 'pointer',
-  outline: 'none'
+  outline: 'none',
+  '-webkit-appearance': 'none',
+  '-moz-appearance': 'none',
+  appearance: 'none'
 }
 
 export default class RegisterPage extends Component {
