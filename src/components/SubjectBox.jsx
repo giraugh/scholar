@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { IsLoggedIn } from './User'
 
 const outerStyle = {
   width: '95%',
@@ -16,17 +17,24 @@ const containerStyle = {
   padding: '10px'
 }
 
-const linkStyle = {
+const linksStyle = {
   display: 'block',
+  color: 'black',
+  marginTop: '10px',
+  alignSelf: 'start',
+  justifySelf: 'end',
+  userSelect: 'none'
+}
+
+const linkStyle = {
+  marginRight: '10px',
+  display: 'span',
   width: 'max-content',
   textDecoration: 'none',
   color: 'black',
   padding: '5px',
   borderRadius: '3px',
-  marginTop: '10px',
   backgroundColor: '#f7f7f7',
-  alignSelf: 'start',
-  justifySelf: 'end',
   userSelect: 'none'
 }
 
@@ -46,13 +54,28 @@ export default class SubjectBox extends Component {
             <h1> {this.props.title} </h1>
           }
           {
-            this.props.link && this.props.rows &&
-            <span
-              className='Linkify FadeInBox'
-              style={linkStyle}
-              onClick={this.props.onLink}>
-                {this.props.link}
-            </span>
+            <div style={linksStyle} className='Linkify'>
+              {
+                this.props.link && this.props.rows &&
+                <span
+                  style={linkStyle}
+                  className='Linkify FadeInBox'
+                  onClick={this.props.onLink}>
+                  { this.props.link }
+                </span>
+              }
+              {
+                this.props.secondaryLink &&
+                <IsLoggedIn>
+                  <span
+                    style={linkStyle}
+                    className='FadeInBox'
+                    onClick={this.props.onSecondaryLink}>
+                    { this.props.secondaryLink }
+                  </span>
+                </IsLoggedIn>
+              }
+            </div>
           }
         </div>
         {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import fetch from 'node-fetch'
 import SubjectBox from './SubjectBox'
 import chunk from 'lodash.chunk'
@@ -12,7 +13,8 @@ export default class Links extends Component {
     this.state = {
       links: [],
       width: window.innerWidth,
-      showAll: false
+      showAll: false,
+      reToCreate: false
     }
   }
 
@@ -39,8 +41,13 @@ export default class Links extends Component {
       : [chunk(links, upcomingNumber)[0]]
     return (
       <div>
+        {
+          this.state.reToCreate &&
+          <Redirect to={`/create/${this.props.subject}/link`} />
+        }
         <SubjectBox
           title={title}
+          secondaryLink='Create link...'
           link={
             links.length > upcomingNumber
               ? this.state.showAll
@@ -49,6 +56,7 @@ export default class Links extends Component {
               : null
           }
           onLink={() => this.setState({showAll: !this.state.showAll})}
+          onSecondaryLink={() => this.setState({reToCreate: true})}
           rows={rows}
         />
       </div>

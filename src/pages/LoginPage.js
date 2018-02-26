@@ -1,83 +1,11 @@
 import React, { Component } from 'react'
 import fetch from 'node-fetch'
 import cookies from 'cookies-js'
+import Form from '../components/Form'
 import { Redirect } from 'react-router-dom'
-import { ScaleLoader as Loader } from 'react-spinners'
+import { IsLoggedIn, NotLoggedIn } from '../components/User'
 
 const LOGIN_URL = 'http://friendly-lamp.herokuapp.com/auth/login'
-
-const loginPageStyle = {
-  marginTop: '50px'
-}
-
-const formStyle = {
-  display: 'grid',
-  width: '50vw',
-  margin: 'auto',
-  backgroundColor: '#efefef',
-  height: '300px',
-  borderRadius: '3px',
-  boxShadow: '#000000c7 0px 0px 8px 0px',
-  gridTemplateRows: '1fr 4fr',
-  marginTop: '100px',
-  overflow: 'hidden'
-}
-
-const fieldsStyle = {
-  display: 'grid',
-  padding: '10px',
-  gridTemplateRows: '1fr 1fr 1fr',
-  height: 'calc(100% - 40px)'
-}
-
-const errorStyle = {
-  lineHeight: '30px',
-  verticalAlign: 'middle',
-  color: '#d40000',
-  marginLeft: '10px'
-}
-
-const fieldContStyle = {
-  display: 'block',
-  paddingTop: '10px',
-  paddingBottom: '10px'
-}
-
-const fieldStyle = {
-  width: 'calc(100% - 10px)',
-  height: '80%',
-  paddingLeft: '10px',
-  fontSize: '20px',
-  backgroundColor: '#e6e6e6',
-  border: 'none',
-  outline: 'none',
-  boxShadow: 'rgba(0, 0, 0, 0.75) 0px 0px 3px 0px inset'
-}
-
-const headerStyle = {
-  backgroundColor: '#cecece',
-  color: '#000000c7',
-  paddingTop: '10px',
-  textAlign: 'center',
-  verticalAlign: 'center',
-  fontSize: '30px',
-  boxShadow: 'rgba(0, 0, 0, 0.75) 0px -1px 4px 0px inset'
-}
-
-const submitStyle = {
-  display: 'block',
-  height: 'calc(100% - 20px)',
-  border: 'none',
-  marginTop: '10px',
-  backgroundColor: '#f3f1f1',
-  boxShadow: '#000000c7 0px 0px 4px 0px',
-  fontSize: '20px',
-  cursor: 'pointer',
-  outline: 'none',
-  '-webkit-appearance': 'none',
-  '-moz-appearance': 'none',
-  appearance: 'none'
-}
 
 export default class LoginPage extends Component {
   constructor () {
@@ -89,15 +17,7 @@ export default class LoginPage extends Component {
     }
   }
 
-  handleSubmit (event) {
-    // Dont submit using FORM req
-    event.preventDefault()
-
-    // Get data from form
-    const formData = new window.FormData(event.target)
-    const data = {}
-    formData.forEach((v, k) => { data[k] = v })
-
+  handleSubmit (data) {
     // Start spinner
     this.setState({loading: true})
 
@@ -151,37 +71,30 @@ export default class LoginPage extends Component {
   }
 
   render () {
-    return (
-      <div className='LoginPage' style={loginPageStyle}>
-        {
-          // Redirect to route or show login form
-          this.isLoggedIn()
-            ? <Redirect to='/' />
-            : (
-              <form className='GrowPost' method='post' onSubmit={this.handleSubmit} style={formStyle}>
-                <h2 style={headerStyle}> Login </h2>
-                {
-                  this.state.loading
-                    ? <div style={{margin: 'auto'}}><Loader color={'#4c4c4c'} /></div>
-                    : <div>
-                      <span style={this.state.errorText !== '' ? errorStyle : {}}> { this.state.errorText } </span>
-                      <div style={fieldsStyle}>
-                        <div style={fieldContStyle}>
-                          Email
-                          <input required type='email' name='email' placeholder='gus@scholar.com' style={fieldStyle} />
-                        </div>
-                        <div style={fieldContStyle}>
-                          Password
-                          <input required type='password' name='password' placeholder='' style={fieldStyle} />
-                        </div>
-                        <input type='submit' className='LoginButton' value='LOGIN' style={submitStyle} />
-                      </div>
-                    </div>
-                }
-              </form>
-            )
-        }
-      </div>
-    )
+    return (<div>
+      <NotLoggedIn>
+        <Form
+          submitText='LOGIN'
+          headerText='Login'
+          errorText={this.state.errorText}
+          loading={this.state.loading}
+          handleSubmit={this.handleSubmit}
+          fields={[
+            {
+              label: 'Email',
+              element: style =>
+                <input required type='email' name='email' placeholder='gus@scholar.com' style={style} />
+            },
+            {
+              label: 'Password',
+              element: style =>
+                <input required type='password' name='password' placeholder='' style={style} />
+            }
+          ]} />
+      </NotLoggedIn>
+      <IsLoggedIn>
+        <Redirect to='/' />
+      </IsLoggedIn>
+    </div>)
   }
 }

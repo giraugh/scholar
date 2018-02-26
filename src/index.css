@@ -70,8 +70,11 @@
   }
 
   .SBHeader > .Linkify {
+    justify-self: start !important;
+  }
+
+  .SBHeader > .Linkify > span {
     text-decoration: underline !important;
     background-color: white !important;
-    justify-self: start !important;
   }
 }
