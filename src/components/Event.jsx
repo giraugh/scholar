@@ -32,7 +32,7 @@ const dateStyle = {
 
 export default class Event extends Component {
   render () {
-    const date = new Date(+this.props.date)
+    const date = new Date(this.props.date)
     return (
       <div className='Event' style={eventStyle}>
         <div className='EventContent' style={contentStyle}>
