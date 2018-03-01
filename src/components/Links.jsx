@@ -75,7 +75,7 @@ export default class Links extends Component {
     // Get data
     fetch(`${LINKS_URL}?subject=${this.props.subject}`)
       .then(response => response.json())
-      .then(data => this.setState({links: data.links}))
+      .then(data => this.setState({links: data}))
   }
 
   componentWillUnmount () {

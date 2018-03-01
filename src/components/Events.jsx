@@ -78,7 +78,7 @@ export default class Events extends Component {
     // Get events data from backend
     fetch(`${EVENTS_URL}?subject=${this.props.subject}`)
       .then(response => response.json())
-      .then(data => this.setState({events: data.events}))
+      .then(data => this.setState({events: data}))
   }
 
   componentWillUnmount () {
