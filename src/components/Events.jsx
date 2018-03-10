@@ -4,8 +4,9 @@ import chunk from 'lodash.chunk'
 import fetch from 'node-fetch'
 import SubjectBox from './SubjectBox'
 import Event from './Event'
+import { scholarBaseUrl, scholarEvents } from '../data/config'
 
-const EVENTS_URL = 'https://friendly-lamp.herokuapp.com/get-events'
+const EVENTS_URL = scholarBaseUrl + scholarEvents
 
 // #TODO: Sort events by date
 

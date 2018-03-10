@@ -4,8 +4,9 @@ import fetch from 'node-fetch'
 import SubjectBox from './SubjectBox'
 import chunk from 'lodash.chunk'
 import Link from './Link'
+import { scholarBaseUrl, scholarLinks } from '../data/config'
 
-const LINKS_URL = 'https://friendly-lamp.herokuapp.com/get-links'
+const LINKS_URL = scholarBaseUrl + scholarLinks
 
 export default class Links extends Component {
   constructor () {

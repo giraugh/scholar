@@ -4,8 +4,9 @@ import cookies from 'cookies-js'
 import Form from '../components/Form'
 import { Redirect } from 'react-router-dom'
 import { IsLoggedIn, NotLoggedIn } from '../components/User'
+import { scholarBaseUrl, scholarLogin } from '../data/config'
 
-const LOGIN_URL = 'http://friendly-lamp.herokuapp.com/auth/login'
+const LOGIN_URL = scholarBaseUrl + scholarLogin
 
 export default class LoginPage extends Component {
   constructor () {

@@ -5,9 +5,9 @@ import Recaptcha from 'react-recaptcha'
 import Form from '../components/Form'
 import { Redirect } from 'react-router-dom'
 import { IsLoggedIn, NotLoggedIn } from '../components/User'
-import { captchaKey } from '../data/config'
+import { captchaKey, scholarBaseUrl, scholarRegister } from '../data/config'
 
-const REGISTER_URL = 'http://friendly-lamp.herokuapp.com/auth/register'
+const REGISTER_URL = scholarBaseUrl + scholarRegister
 
 const registerPageStyle = {
   marginTop: '50px'

@@ -1,3 +1,9 @@
 {
-  "captchaKey": "6LdoHUgUAAAAAAetzFOsNh8zrrnY0B39e3Hr2ggF"
+  "captchaKey": "6LdoHUgUAAAAAAetzFOsNh8zrrnY0B39e3Hr2ggF",
+  "scholarBaseUrl": "http://friendly-lamp.herokuapp.com",
+  "scholarLogin": "/auth/login",
+  "scholarRegister": "/auth/register",
+  "scholarMe": "/auth/me",
+  "scholarEvents": "/events",
+  "scholarLinks": "/links"
 }

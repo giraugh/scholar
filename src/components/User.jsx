@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import cookies from 'cookies-js'
 import fetch from 'node-fetch'
+import { scholarBaseUrl, scholarMe } from '../data/config'
 
-const ME_URL = 'http://friendly-lamp.herokuapp.com/auth/me'
+const ME_URL = scholarBaseUrl + scholarMe
 
 export class IsLoggedIn extends Component {
   render () {

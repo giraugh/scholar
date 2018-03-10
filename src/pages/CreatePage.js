@@ -4,9 +4,10 @@ import cookies from 'cookies-js'
 import { Redirect, Switch, Route } from 'react-router-dom'
 import { IsLoggedIn, NotLoggedIn } from '../components/User'
 import Form from '../components/Form'
+import { scholarBaseUrl, scholarEvents, scholarLinks } from '../data/config'
 
-const CREATE_EVENT_URL = 'http://friendly-lamp.herokuapp.com/new-event'
-const CREATE_LINK_URL = 'http://friendly-lamp.herokuapp.com/new-link'
+const EVENTS_URL = scholarBaseUrl + scholarEvents
+const LINKS_URL = scholarBaseUrl + scholarLinks
 
 const createPageStyle = {
   marginTop: '30px'
@@ -49,7 +50,7 @@ class EventForm extends Component {
     }
 
     // Send form data to backend and accept token
-    fetch(CREATE_EVENT_URL, {
+    fetch(EVENTS_URL, {
       method: 'POST',
       body: JSON.stringify(requestData),
       headers: {
@@ -145,7 +146,7 @@ class LinkForm extends Component {
     }
 
     // Send form data to backend and accept token
-    fetch(CREATE_LINK_URL, {
+    fetch(LINKS_URL, {
       method: 'POST',
       body: JSON.stringify(requestData),
       headers: {
