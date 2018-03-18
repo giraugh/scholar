@@ -24,6 +24,15 @@ const contentStyle = {
   padding: '5px'
 }
 
+const footerStyle = {
+  textAlign: 'center',
+  paddingTop: '5px',
+  fontStyle: 'italic',
+  color: '#737373',
+  backgroundColor: '#d2d2d2',
+  boxShadow: 'inset 0px 2px 2px 0px #0000001c'
+}
+
 export default class Link extends Component {
   render () {
     return (
@@ -32,6 +41,9 @@ export default class Link extends Component {
           <h3> { this.props.name } </h3>
           <span> { this.props.description } </span>
         </div>
+        {this.props.footerContent &&
+          <span style={{...footerStyle, ...(this.props.footerStyle || {})}}> {this.props.footerContent} </span>
+        }
       </a>
     )
   }

@@ -21,7 +21,7 @@ class Link extends Component {
   }
 }
 
-export default class Events extends Component {
+export default class Links extends Component {
   render () {
     return (
       <Posts
