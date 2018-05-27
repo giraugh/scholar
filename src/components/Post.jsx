@@ -50,6 +50,8 @@ const userNameStyle = {
   color: '#949393'
 }
 
+const goTo = url => _ => { window.location = url }
+
 export default class Post extends Component {
   constructor () {
     super()
@@ -76,7 +78,7 @@ export default class Post extends Component {
       <a href={this.props.link} className='Link LinkBox' style={linkStyle}>
         <div className='LinkContent' style={contentStyle}>
           <h3> { this.props.name } </h3>
-          { this.state.userName && <h5 style={userNameStyle}>
+          { this.state.userName && <h5 onClick={goTo(`/user/${this.props.user}`)} style={userNameStyle}>
             { this.state.userName }
           </h5> }
           <hr style={hrStyle} />

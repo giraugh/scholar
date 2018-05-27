@@ -25,10 +25,11 @@ export default class Links extends Component {
   render () {
     return (
       <Posts
+        titlePrefix={this.props.titlePrefix || 'Featured '}
         type='link'
         postClass={Link}
         subject={this.props.subject}
-        getPosts={getLinks}
+        getPosts={this.props.getPosts || getLinks}
       />
     )
   }

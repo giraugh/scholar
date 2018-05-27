@@ -32,11 +32,12 @@ export default class Events extends Component {
   render () {
     return (
       <Posts
+        titlePrefix={this.props.titlePrefix || 'Featured '}
         type='event'
         postClass={Event}
         subject={this.props.subject}
         sorting={sortEvents}
-        getPosts={getEvents}
+        getPosts={this.props.getPosts || getEvents}
       />
     )
   }

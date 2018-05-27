@@ -19,7 +19,13 @@ export const getMyId = () => fetch(ME_URL, {
 
 export const getUser = id =>
   fetch(`${USERS_URL}?id=${id}`)
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw Error(response.statusText)
+      }
+    })
 
 export const getUserName = id =>
   getUser(id)

@@ -32,7 +32,7 @@ export default class Posts extends Component {
     const title = this.state.showAll
       ? `All ${capitalize(this.props.type)}s`
       : (
-        `Featured ${capitalize(this.props.type)}${(upcomingNumber > 1 ? 's' : '')}`
+        `${this.props.titlePrefix}${capitalize(this.props.type)}${(upcomingNumber > 1 ? 's' : '')}`
       )
 
     const sortedPosts = this.state.posts.sort(this.props.sorting)
