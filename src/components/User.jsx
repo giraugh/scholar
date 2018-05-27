@@ -1,19 +1,42 @@
 import React, { Component } from 'react'
-import cookies from 'cookies-js'
-import fetch from 'node-fetch'
-import { scholarBaseUrl, scholarMe } from '../data/config'
-
-const ME_URL = scholarBaseUrl + scholarMe
+import {
+  isLoggedIn,
+  getUserName,
+  getMyName,
+  logOut
+} from '../util/user'
 
 export class IsLoggedIn extends Component {
   render () {
-    return cookies.get('user_token') ? this.props.children : null
+    return isLoggedIn() ? this.props.children : null
   }
 }
 
 export class NotLoggedIn extends Component {
   render () {
-    return !cookies.get('user_token') ? this.props.children : null
+    return !isLoggedIn() ? this.props.children : null
+  }
+}
+
+export class UserName extends Component {
+  constructor () {
+    super()
+    this.state = {name: ''}
+  }
+
+  componentDidMount () {
+    getUserName(this.props.id)
+      .then(name => {
+        this.setState({name})
+      })
+  }
+
+  render () {
+    return (
+      <span>
+        { this.state.name }
+      </span>
+    )
   }
 }
 
@@ -24,18 +47,8 @@ export class MyUserName extends Component {
   }
 
   componentDidMount () {
-    const token = cookies.get('user_token')
-    fetch(ME_URL, {
-      method: 'GET',
-      headers: {
-        'x-access-token': token
-      }
-    }).then(response => response.json())
-    .then(data => {
-      if (data && data.name) {
-        this.setState({name: data.name})
-      }
-    })
+    getMyName()
+      .then(name => this.setState({name}))
   }
 
   render () {
@@ -51,7 +64,7 @@ export class MyUserName extends Component {
 
 export class LogoutLink extends Component {
   handleClick () {
-    cookies.set('user_token')
+    logOut()
     window.location.reload()
   }
 

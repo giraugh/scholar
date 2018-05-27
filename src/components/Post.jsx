@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { getMyId, getUserName } from '../util/user'
 
 const linkStyle = {
   display: 'grid',
@@ -33,13 +34,53 @@ const footerStyle = {
   boxShadow: 'inset 0px 2px 2px 0px #0000001c'
 }
 
-export default class Link extends Component {
+const descriptionStyle = {
+  marginTop: '10px',
+  display: 'block'
+}
+
+const hrStyle = {
+  width: '100%',
+  marginTop: '5px',
+  border: 'none',
+  borderBottom: '2px solid #d2d2d2'
+}
+
+const userNameStyle = {
+  color: '#949393'
+}
+
+export default class Post extends Component {
+  constructor () {
+    super()
+    this.state = {
+      isMine: false,
+      userName: ''
+    }
+  }
+
+  componentDidMount () {
+    getMyId()
+      .then(id => {
+        const isMine = this.props.user === id
+        this.setState({isMine})
+      })
+    getUserName(this.props.user)
+      .then(userName => {
+        this.setState({userName})
+      })
+  }
+
   render () {
     return (
       <a href={this.props.link} className='Link LinkBox' style={linkStyle}>
         <div className='LinkContent' style={contentStyle}>
           <h3> { this.props.name } </h3>
-          <span> { this.props.description } </span>
+          { this.state.userName && <h5 style={userNameStyle}>
+            { this.state.userName }
+          </h5> }
+          <hr style={hrStyle} />
+          <span style={descriptionStyle}> { this.props.description } </span>
         </div>
         {this.props.footerContent &&
           <span style={{...footerStyle, ...(this.props.footerStyle || {})}}> {this.props.footerContent} </span>
