@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { getMyId, getUserName } from '../util/user'
 
 const linkStyle = {
@@ -50,8 +51,6 @@ const userNameStyle = {
   color: '#949393'
 }
 
-const goTo = url => _ => { window.location = url }
-
 export default class Post extends Component {
   constructor () {
     super()
@@ -75,19 +74,19 @@ export default class Post extends Component {
 
   render () {
     return (
-      <a href={this.props.link} className='Link LinkBox' style={linkStyle}>
+      <div href={this.props.link} className='Link LinkBox' style={linkStyle}>
         <div className='LinkContent' style={contentStyle}>
           <h3> { this.props.name } </h3>
-          { this.state.userName && <h5 onClick={goTo(`/user/${this.props.user}`)} style={userNameStyle}>
-            { this.state.userName }
-          </h5> }
+          { this.state.userName && <Link to={`/user/${this.props.user}`} style={userNameStyle}>
+            <h5> { this.state.userName } </h5>
+          </Link> }
           <hr style={hrStyle} />
           <span style={descriptionStyle}> { this.props.description } </span>
         </div>
         {this.props.footerContent &&
           <span style={{...footerStyle, ...(this.props.footerStyle || {})}}> {this.props.footerContent} </span>
         }
-      </a>
+      </div>
     )
   }
 }

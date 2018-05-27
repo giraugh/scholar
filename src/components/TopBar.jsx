@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { IsLoggedIn, NotLoggedIn, MyUserName, LogoutLink } from './User'
+import {
+  getMyId
+} from '../util/user'
 
 const topBarStyle = {
   display: 'block',
@@ -29,7 +32,8 @@ const formLinkStyle = {
   marginRight: '15px',
   verticalAlign: 'middle',
   lineHeight: '40px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  display: 'inline'
 }
 
 const formLinksStyle = {
@@ -40,8 +44,14 @@ export default class TopBar extends Component {
   constructor () {
     super()
     this.state = {
-      name: ''
+      name: '',
+      id: undefined
     }
+  }
+
+  componentDidMount () {
+    getMyId()
+      .then(id => this.setState({id}))
   }
 
   render () {
@@ -50,8 +60,13 @@ export default class TopBar extends Component {
         <Link to='/' style={homeLinkStyle} > Scholar </Link>
         <div style={formLinksStyle}>
           <IsLoggedIn>
+            { this.state.id &&
+              <Link to={`/user/${this.state.id}`} style={formLinkStyle} >
+                <MyUserName />
+              </Link>
+            }
             <LogoutLink style={formLinkStyle}>
-              <MyUserName suffix=' -' /> Logout
+              Logout
             </LogoutLink>
           </IsLoggedIn>
           <NotLoggedIn>
