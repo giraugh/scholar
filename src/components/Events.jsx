@@ -13,7 +13,6 @@ const sortEvents = (a, b) =>
 const getEvents = (subject) =>
   fetch(`${EVENTS_URL}?subject=${subject}`)
     .then(response => response.json())
-    .then(data => data)
 
 class Event extends Component {
   render () {

@@ -1,13 +1,26 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
+import fetch from 'node-fetch'
 import Events from '../components/Events'
 import Links from '../components/Links'
 import {
   getUserName
 } from '../util/user'
+import {
+  scholarBaseUrl,
+  scholarUsersLinks,
+  scholarUsersEvents
+} from '../data/config'
 
-const getUserEvents = id => () => new Promise((resolve, reject) => resolve([]))
-const getUserLinks = id => () => new Promise((resolve, reject) => resolve([]))
+const EVENTS_URL = scholarBaseUrl + scholarUsersEvents
+const LINKS_URL = scholarBaseUrl + scholarUsersLinks
+
+const getUserEvents = id => () =>
+  fetch(`${EVENTS_URL}?id=${id}`)
+    .then(response => response.json())
+const getUserLinks = id => () =>
+  fetch(`${LINKS_URL}?id=${id}`)
+    .then(response => response.json())
 
 const headingStyle = {
   marginTop: '50px',
@@ -41,8 +54,8 @@ export class UserPage extends Component {
           this.state.name
             ? <div className='SubjectPage'>
               <h1 style={headingStyle}> {this.state.name} </h1>
-              <Events titlePrefix=' ' subject='' getPosts={getUserEvents(id)} />
-              <Links titlePrefix=' ' subject='' getPosts={getUserLinks(id)} />
+              <Events titlePrefix={this.state.name + '\'s '} subject='' getPosts={getUserEvents(id)} />
+              <Links titlePrefix={this.state.name + '\'s '} subject='' getPosts={getUserLinks(id)} />
             </div>
             : <div />
         )

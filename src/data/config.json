@@ -6,5 +6,7 @@
   "scholarMe": "/auth/me",
   "scholarEvents": "/events",
   "scholarLinks": "/links",
+  "scholarUsersEvents": "/users-events",
+  "scholarUsersLinks": "/users-links",
   "scholarUsers": "/users"
 }

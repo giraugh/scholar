@@ -9,7 +9,6 @@ const LINKS_URL = scholarBaseUrl + scholarLinks
 const getLinks = (subject) =>
   fetch(`${LINKS_URL}?subject=${subject}`)
     .then(response => response.json())
-    .then(data => data)
 
 class Link extends Component {
   render () {
